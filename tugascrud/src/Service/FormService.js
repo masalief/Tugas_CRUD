@@ -18,7 +18,7 @@ class FormService {
   }
 
   getStudent(id) {
-    return http.get(`/delete/${id}`);
+    return http.get(`/getStudent/${id}`);
   }
 }
 

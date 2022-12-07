@@ -12,12 +12,12 @@
                     <div class="d-flex">
                         <div class="form-group col-md-6">
                             <label for="exampleInputEmail1">Student Name</label>
-                            <input v-model="formData.first_name" type="first" class="form-control" id="namaform" aria-describedby="emailHelp"
+                            <input v-model="studentData.student_name" type="first" class="form-control" id="namaform" aria-describedby="emailHelp"
                                 placeholder="Enter name" required />
                         </div>
                         <div class="form-group mx-3 col-md-6">
                             <label for="exampleInputPassword1">Soft Skills</label>
-                            <input v-model="formData.soft_skills" type="phone" class="form-control" id="exampleInputPassword1"
+                            <input v-model="studentData.shoft_skill" type="phone" class="form-control" id="exampleInputPassword1"
                                 placeholder="Enter soft skills" required />
                         </div>
                     </div>
@@ -25,13 +25,13 @@
                     <div class="d-flex">
                         <div class="form-group col-md-3">
                             <label for="exampleInputEmail1">Student Age</label>
-                            <input v-model="formData.student_age" type="last" class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp"
+                            <input v-model="studentData.student_age" type="last" class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp"
                                 placeholder="Enter age" required />
                         </div>
     
                         <div class="form-group col-md-3">
                         <label for="inputState">Gender</label>
-                        <select id="inputState" class="form-control">
+                        <select v-model="studentData.gender" id="inputState" class="form-control">
                             <option>
                                 <p></p>
                             </option>
@@ -46,7 +46,7 @@
     
                         <div class="form-group mx-3 col-md-6">
                             <label for="exampleInputPassword1">Hard Skills</label>
-                            <input v-model="formData.hard_skills" type="city" class="form-control" id="exampleInputPassword1" placeholder="Enter hard skills" required/>
+                            <input v-model="studentData.hard_skill" type="city" class="form-control" id="exampleInputPassword1" placeholder="Enter hard skills" required/>
                         </div>
                     </div>
     
@@ -54,14 +54,14 @@
                     <div class="col-md-6">
                         <div class="form-group">
                             <label for="exampleInputEmail1">Student Email</label>
-                            <input v-model="formData.student_email" type="email" class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp"
+                            <input v-model="studentData.student_email" type="email" class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp"
                                 placeholder="Enter Email" required />
                         </div>
                     </div>
     
                     <div class="form-group col-md-6 mx-3">
                     <label for="inputState">Interest</label>
-                    <select id="inputState" class="form-control">
+                    <select v-model="studentData.interest" id="inputState" class="form-control">
                         <option></option>
                         <option>
                             <p>Data Science</p>
@@ -84,7 +84,7 @@
     
                     <div class="form-group mx-5 my-3">
                         <label for="exampleInputEmail1">Self Description</label>
-                        <textarea type="address" class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp"
+                        <textarea v-model="studentData.self_description" type="address" class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp"
                             placeholder="Enter address"></textarea>
                     </div>
     
@@ -105,14 +105,16 @@
         data() {
             return {
                 
-                formData : {
-                "first_name" : null,
-                "last_name" : null,
-                "phone_number" : null,
-                "city" : null,
-                "postal_code" : null,
-                "address" : null,
-                },
+                studentData : {
+                "student_name" : null,
+                "shoft_skill" : null,
+                "student_age" : null,
+                "gender" : null,
+                "hard_skill" : null,
+                "student_email" : null,
+                "interest" : null,
+                "self_description" : null,
+            },
                 success : false,
                 buttonValue : "Submit"
             }
@@ -120,19 +122,10 @@
     
         methods : {
             inputAddForm(){
-                let data = this.fromData;
+                let data = this.studentData;
+                let id = this.$route.params.id
                     
-                if(this.buttonValue === "Submit"){
-                    FormService.create(data)
-                        .then(response => {
-                            console.log(response.data);
-                            this.success = true;
-                        })
-                        .catch(e => {
-                                console.log(e);
-                        });  
-                    }else{
-                        FormService.updateForm(data.id, data)
+                FormService.updateStudent(id, data)
                             .then(response => {
                                 console.log(response.data);
                                 this.success = true;
@@ -140,21 +133,29 @@
                             .catch(e => {
                                 console.log(e);
                             });
-                    }
+             },
+
+             viewUpdate() {
+                let id = this.$route.params.id
+                FormService.getStudent(id)
+                .then(response => {
+                    this.studentData = response.data;
+                    console.log(this.studentData);
+                })
+                .catch(e => {
+                    console.log(e);
+                });
+             }
         },
-    },
         components : {
             SuccessForm
         },
-        props: ["fromDataProps"],
-            watch: {
-                'formDataProps'(newValue) {
-                    this.formData = newValue;
-                    console.log(this.fromData);
-                    this.buttonValue = "Update"
-                }
-            }
-    }
+
+        mounted() {
+            this.viewUpdate();
+        },
+        
+    };
     
     
     

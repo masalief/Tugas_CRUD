@@ -16,7 +16,7 @@ export default [
     },
 
     {
-        path : "/update",
+        path : "/update/:id",
         component : Update,
     },
 
