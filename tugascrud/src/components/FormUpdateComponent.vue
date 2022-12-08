@@ -1,14 +1,14 @@
 <template>
     <div>
             <img src="https://www.gstatic.com/classroom/themes/img_code.jpg" alt="Logo" id="logo">
-            <div>
+            <div v-show="!success">
                 <router-link to="/" type="submit" class="btn btn-primary mt-3 ml-3">Back</router-link>
             </div>
     
             <div class="row justify-content-center my-6">
             <div class="col-8 border border-dark p-5 rounded">
                 <h1 class=" text-center">Update Student</h1>
-                <form class="mt-5" id="formshipping" @submit.prevent="inputAddForm" v-show="!success">
+                <form v-show="!success" class="mt-5" id="formshipping" @submit.prevent="inputAddForm" >
                     <div class="d-flex">
                         <div class="form-group col-md-6">
                             <label for="exampleInputEmail1">Student Name</label>
@@ -90,7 +90,7 @@
     
                     <button type="submit" class="btn btn-success">{{ buttonValue }}</button>
                 </form>
-                <SuccessForm v-show="success"></SuccessForm>
+                <SuccessUpdateForm v-show="success"></SuccessUpdateForm>
             </div>
         </div>
     </div>
@@ -98,7 +98,7 @@
     
     <script>
     import FormService from '@/Service/FormService';
-    import SuccessForm from './SuccessForm.vue'; 
+    import SuccessUpdateForm from './SuccessUpdateForm.vue'; 
     
     export default {
        
@@ -148,7 +148,7 @@
              }
         },
         components : {
-            SuccessForm
+            SuccessUpdateForm
         },
 
         mounted() {

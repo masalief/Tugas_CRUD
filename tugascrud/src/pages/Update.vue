@@ -14,7 +14,7 @@
   
       components : {
          CopyrightComponent,
-         FormUpdateComponent, 
+         FormUpdateComponent,
       },
   }
   </script>
