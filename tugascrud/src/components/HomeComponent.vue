@@ -14,19 +14,19 @@
                     <br>
                     <table>
                         <tr>
-                            <td style="width:50%;">Student Email</td>
+                            <td style="width:50%;"><b>Student Email</b></td>
                             <td>:  {{ item.student_email }}</td>
                         </tr>
                         <tr>
-                            <td>Soft Skill </td>
+                            <td><b> Soft Skill </b></td>
                             <td>:  {{ item.shoft_skill }}</td>
                         </tr>
                         <tr>
-                            <td>Hard Skill</td>
+                            <td><b> Hard Skill</b></td>
                             <td>:  {{ item.hard_skill }}</td>
                         </tr>
                         <tr>
-                            <td>Interest</td>
+                            <td><b> Interest</b></td>
                             <td>:  {{ item.interest }}</td>
                         </tr>
                     </table>
